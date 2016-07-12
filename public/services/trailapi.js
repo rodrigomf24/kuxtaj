@@ -62,3 +62,27 @@ TrailApi.prototype.requestPlaces = function () {
 TrailApi.prototype.setSearchParameters = function (searchParameters) {
   this.searchParameters = Object.assign(this.searchParameters, searchParameters);
 };
+
+TrailApi.prototype.searchThumbnail = function(phrase) {
+  return new Promise(function(resolve, reject) {
+    $.ajax({
+      url:'https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=best&page_size=1&phrase='+phrase,
+      dataType:'json',
+      method:'GET',
+      headers:{
+        'Api-Key':'9h7rmpmb3dvp9pkqthgsghrk'
+      },
+      success:function(data) {
+        if(data.images) {
+          resolve(data.images);
+        } else {
+          resolve([{thumb:'http://placehold.it/400x370&text=Image'}]);
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        reject(err);
+        console.error(status, err.toString());
+      }.bind(this)
+    });
+  });
+};

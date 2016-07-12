@@ -118,6 +118,14 @@ var PlacesList = React.createClass({
   }
 });
 
+var PlaceInfo = React.createClass({
+  render: function() {
+    return (
+      <div></div>  
+    );
+  }
+});
+
 var OutdoorApp = React.createClass({
   getInitialState: function() {
     return {
@@ -171,7 +179,7 @@ var OutdoorApp = React.createClass({
         </div>
         <div className="mastfoot">
           <div className="inner">
-            By <a href="http://rmdevgt.com" target="_blank">rmdevgt.com</a>
+            By <a href="https://www.linkedin.com/in/rmdevgt" target="_blank">rmdevgt.com</a>
           </div>
         </div>
       </div>
@@ -179,7 +187,20 @@ var OutdoorApp = React.createClass({
   }
 });
 
-ReactDOM.render(
-  <OutdoorApp />,
+var Router = window.ReactRouter.Router,
+    Route = window.ReactRouter.Route,
+    Link = window.ReactRouter.Link, browserHistory = window.ReactRouter.browserHistory;
+
+ReactDOM.render((
+  <Router>
+    <Route path="/" component={OutdoorApp}>
+      <Route path="place-info" component={PlaceInfo} />
+    </Route>
+  </Router>),
   document.getElementById('app')
 );
+
+/*<Route path="about" component={About} />
+      <Route path="inbox" component={Inbox}>
+        <Route path="messages/:id" component={Message} />
+      </Route>*/
